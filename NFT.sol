@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT OR Apache-2.0
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -13,15 +14,13 @@ contract Doodles is ERC721, ERC721Enumerable, Ownable {
     uint256 public MAX_SUPPLY;
     uint256 public MAX_PUBLIC_MINT;
     uint256 public PRICE_PER_TOKEN;
-    string name;
-    string symbol;
+    string private name;
+    string private symbol;
 
     mapping(address => uint8) private _allowList;
 
-    constructor(string memory name_, string memory symbol_) 
-    ERC721("name_", "symbol_") {
-    name = name_;
-    symbol = symbol_;
+    constructor()
+    ERC721("name", "symbol") {
     }
 
     function setIsAllowListActive(bool _isAllowListActive) external onlyOwner {
@@ -69,6 +68,14 @@ contract Doodles is ERC721, ERC721Enumerable, Ownable {
 
     function setProvenance(string memory provenance) public onlyOwner {
         PROVENANCE = provenance;
+    }
+
+    function setCollectionName(string memory name_) external onlyOwner {
+        name = name_;
+    }
+
+    function setCollectionsymbol(string memory symbol_) external onlyOwner {
+        symbol = symbol_;
     }
 
     function reserve(uint256 n) public onlyOwner {
